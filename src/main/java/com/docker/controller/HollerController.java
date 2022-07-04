@@ -1,5 +1,6 @@
 package com.docker.controller;
 
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,9 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/controller")
 public class HollerController {
 
+    @Resource
+    private UserMapper userMapper;
+
     @GetMapping("/getName")
     public String getName() {
-        return "com.docker.controller";
+        User user = userMapper.selectById(1);
+        assert user != null;
+        return user.toString();
     }
 
 }
